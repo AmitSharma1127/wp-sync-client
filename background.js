@@ -385,8 +385,10 @@ chrome.runtime.onMessage.addListener(
                     }, function (redirect_url) {
                         if (chrome.runtime.lastError || redirect_url.includes('error')) {
                             console.log("chrome.runtime.lastError: ", chrome.runtime.lastError)
-                            console.log('Error from twitch API\n', redirect_url.split('error_description')[1])
-                            sendResponse({ message: 'fail' });
+                            if(!chrome.runtime.lastError){
+                                console.log('Error from twitch API\n', redirect_url.split('error_description')[1])
+                                sendResponse({ message: 'fail' });
+                            }
                         }else{
                             let id_token = redirect_url.substring(redirect_url.indexOf('id_token=') + 9);
                             id_token = id_token.substring(0, id_token.indexOf('&'));
