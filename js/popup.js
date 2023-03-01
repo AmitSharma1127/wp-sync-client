@@ -48,95 +48,94 @@ chrome.storage.sync.get("DOMAIN_URL", function(result) {
     })
 
     $('#lobby').on('click', function(){
-    $('.main_op').hide()
-    $('.lobby_type').show()
-})
-
-$('#netflix').on('click', function(){
-    chrome.runtime.sendMessage({service: 'netflix', is_private: is_private})
-})
-
-$('#youtube').on('click', function(){
-    chrome.runtime.sendMessage({service: 'youtube', is_private: is_private})
-})
-
-$('.back_btn').on('click', function(){
-    if (is_private){
-        is_private = false
-    }
-    if($('.start_wp_content').css('display') == 'block'){
-        $('.main_op').show()
-    }else if($('.lobby_type').css('display') == 'block'){
-        $('.main_op').show()
-    }else{
-        $('.main_content').show()
         $('.main_op').hide()
-    }
+        $('.lobby_type').show()
+    })
 
-    $('.lobby_type').hide()
-    $('.join_wp_content').hide()
-    $('.start_wp_content').hide()
-})
+    $('#netflix').on('click', function(){
+        chrome.runtime.sendMessage({service: 'netflix', is_private: is_private})
+    })
 
-$('#join_wp_btn').on('click', function(){
-    $('#join_wp_err').html()
-    if($('#join_wp_url').val()){
-        if(checkURL($('#join_wp_url').val())){
-            window.open($('#join_wp_url').val(), "_blank")
-        }else[
-            $('#join_wp_err').html('URL is not right. Please check and try again!')
-        ]
-    }else{
-        $('#join_wp_err').html('URL can not be empty. <br>Please enter a valid watch party URL')
-    }
-})
+    $('#youtube').on('click', function(){
+        chrome.runtime.sendMessage({service: 'youtube', is_private: is_private})
+    })
 
-$('#twitch').on('click', function(){
-    data = {}
-    data['login_twitch'] = true
-    chrome.runtime.sendMessage(data)
-})
-
-chrome.runtime.onMessage.addListener(
-    function(request, _, sendResponse) {
-        if (request.signin_success){
-            userSigngedIn_success()
-            $('.lobby_type').hide()
-            $('.join_wp_content').hide()
-            $('.start_wp_content').show()
+    $('.back_btn').on('click', function(){
+        if (is_private){
+            is_private = false
         }
-    }
-)
-
-function userSigngedIn_success(){
-    chrome.storage.sync.get(['wpsync_display_name'], function(result) {
-        if(!result.wpsync_display_name){
-            setTimeout(() => {
-                chrome.storage.sync.get(['wpsync_display_name'], function(result) {
-                    $('#displayname').html("Hello, "+ result.wpsync_display_name)
-                    $('#displayname').show()
-                    $('#logout').show()
-                    $('#twitch').html("Twitch")
-                });
-            }, 2000);
+        if($('.start_wp_content').css('display') == 'block'){
+            $('.main_op').show()
+        }else if($('.lobby_type').css('display') == 'block'){
+            $('.main_op').show()
         }else{
-            $('#displayname').html("Hello, "+ result.wpsync_display_name)
-            $('#displayname').show()
-            $('#logout').show()
-            $('#twitch').html("Twitch")
+            $('.main_content').show()
+            $('.main_op').hide()
         }
-    });
-}
 
-$('#logout').on('click', function(){
-    chrome.runtime.sendMessage({logout_twitch: true})
-    $('#twitch').html("Login to Twitch")
-    $('.lobby_type').hide()
-    $('.join_wp_content').hide()
-    $('.start_wp_content').hide()
-    $('#displayname').hide()
-    $('#logout').hide()
-    $('.main_content').show()
-})
+        $('.lobby_type').hide()
+        $('.join_wp_content').hide()
+        $('.start_wp_content').hide()
+    })
 
+    $('#join_wp_btn').on('click', function(){
+        $('#join_wp_err').html()
+        if($('#join_wp_url').val()){
+            if(checkURL($('#join_wp_url').val())){
+                window.open($('#join_wp_url').val(), "_blank")
+            }else[
+                $('#join_wp_err').html('URL is not right. Please check and try again!')
+            ]
+        }else{
+            $('#join_wp_err').html('URL can not be empty. <br>Please enter a valid watch party URL')
+        }
+    })
+
+    $('#twitch').on('click', function(){
+        data = {}
+        data['login_twitch'] = true
+        chrome.runtime.sendMessage(data)
+    })
+
+    chrome.runtime.onMessage.addListener(
+        function(request, _, sendResponse) {
+            if (request.signin_success){
+                userSigngedIn_success()
+                $('.lobby_type').hide()
+                $('.join_wp_content').hide()
+                $('.start_wp_content').show()
+            }
+        }
+    )
+
+    function userSigngedIn_success(){
+        chrome.storage.sync.get(['wpsync_display_name'], function(result) {
+            if(!result.wpsync_display_name){
+                setTimeout(() => {
+                    chrome.storage.sync.get(['wpsync_display_name'], function(result) {
+                        $('#displayname').html("Hello, "+ result.wpsync_display_name)
+                        $('#displayname').show()
+                        $('#logout').show()
+                        $('#twitch').html("Twitch")
+                    });
+                }, 2000);
+            }else{
+                $('#displayname').html("Hello, "+ result.wpsync_display_name)
+                $('#displayname').show()
+                $('#logout').show()
+                $('#twitch').html("Twitch")
+            }
+        });
+    }
+
+    $('#logout').on('click', function(){
+        chrome.runtime.sendMessage({logout_twitch: true})
+        $('#twitch').html("Login to Twitch")
+        $('.lobby_type').hide()
+        $('.join_wp_content').hide()
+        $('.start_wp_content').hide()
+        $('#displayname').hide()
+        $('#logout').hide()
+        $('.main_content').show()
+    })
 })

@@ -1,17 +1,12 @@
 self.window = self;
 importScripts('./js/jwt.min.js');
 
-const STATE = encodeURIComponent('meet' + Math.random().toString(36).substring(2, 15));
-const CLIENT_ID = encodeURIComponent("yges9hqovleh6jj0g723ukx5umjzqd");
-const SCOPE = encodeURIComponent("openid user:read:email");
-const RESPONSE_TYPE = encodeURIComponent("token id_token");
-const REDIRECT_URI = chrome.identity.getRedirectURL();
-const SECRET_ID = 'ar3i1qdf3uwmuifmdfy4e8unajo7tj'
-
 db_data = {
-    "DOMAIN_URL_LOCAL": 'http://localhost:3000/',
+    "DOMAIN_URL_LOCAL": 'http://10.42.0.61:3000/',
     "DOMAIN_URL_PROD": 'https://wpsyncserver-beta.onrender.com/'
 }
+
+
 
 // Local setup
 chrome.storage.sync.set({"DOMAIN_URL": db_data.DOMAIN_URL_LOCAL}, function(){
@@ -25,6 +20,14 @@ DOMAIN_URL = db_data.DOMAIN_URL_LOCAL
 // });
 // DOMAIN_URL = db_data.DOMAIN_URL_PROD
 
+
+const STATE = encodeURIComponent('meet' + Math.random().toString(36).substring(2, 15));
+const CLIENT_ID = encodeURIComponent("yges9hqovleh6jj0g723ukx5umjzqd");
+const SCOPE = encodeURIComponent("openid user:read:email");
+const RESPONSE_TYPE = encodeURIComponent("token id_token");
+const REDIRECT_URI = chrome.identity.getRedirectURL();
+const SECRET_ID = 'ar3i1qdf3uwmuifmdfy4e8unajo7tj'
+
 const CLAIMS = encodeURIComponent(
     JSON.stringify({
         id_token: { email: null, email_verified: null }
@@ -36,7 +39,7 @@ let ACCESS_TOKEN = null;
 let interval_id = null;
 let toggle = true
 let isPrivate = false
-let force_verify = true
+let force_verify = false
 
 let manually_minimized_content = false
 let manually_minimized_chat = false
@@ -46,6 +49,9 @@ let contentTabID = 0
 
 let chatWinObj
 let platform
+
+// Default ariable to check if user is a host or not 
+chrome.storage.sync.set({"wp_is_host_viewer": false})
 
 function create_twitch_endpoint() {
     let nonce = encodeURIComponent(Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
@@ -194,14 +200,7 @@ function createWindowPopup(url, w, h, t, l, js_path, css_path){
 //     // console.log(tabId, changeInfo, tab)
 //     function callback() {
 //         if (chrome.runtime.lastError) {
-//             console.log(chrome.runtime.lastError.message);
-//         }else{
-//             if(tabId == chatTabID){
-//                 chrome.windows.update(tabId, {top: 10}, function(){
-//                     console.log("chat window updated", tabId)
-//                 })
-//             }else if(tabId == contentTabID){
-//                 chrome.windows.update(tabId, {top: 10}, function(){
+//             console.log(chrome.rlobbypdate(tabId, {top: 10}, function(){
 //                     console.log("content window updated",tabId)
 //                 })
 //             }
@@ -281,6 +280,10 @@ chrome.runtime.onMessage.addListener(
                 chrome.windows.update(chatTabID - 1, updateInfo);
             })
         }else if(request.service){
+            data = {}
+            data["wp_is_host_viewer"] = true
+            chrome.storage.sync.set(data)
+
             chrome.storage.sync.get(["wpsync_display_name"], function(res){
                 if(!request.is_private){
                     isPrivate = false
@@ -297,6 +300,7 @@ chrome.runtime.onMessage.addListener(
                 var timestamp = Number(new Date())
                 var date = new Date(timestamp) 
                 timestamp = String(date).replace(/ /g,'')
+                console.log(DOMAIN_URL + 'host')
                 fetch(DOMAIN_URL + 'host', {
                     method: 'POST',
                     headers: {
