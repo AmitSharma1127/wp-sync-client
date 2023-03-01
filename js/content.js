@@ -16,7 +16,7 @@ chrome.storage.sync.get(["DOMAIN_URL", "wp_is_host_viewer"], function(result) {
     }
 
     function joinBtnClick(){
-        chrome.storage.sync.set({"wp_is_redirect": true}) // variable to check if user is redirected from wp join page or is streaming twitch normally
+        chrome.storage.sync.set({"wp_is_host_viewer": false})// variable to check if user is redirected from wp join page or is streaming twitch normally
         arr = window.location.pathname.split('/')
         party_id = arr[arr.length - 1]
         chrome.runtime.sendMessage({joinBtnClick: party_id})
@@ -32,10 +32,10 @@ chrome.storage.sync.get(["DOMAIN_URL", "wp_is_host_viewer"], function(result) {
     }
 
     if (window.location.host == 'www.twitch.tv' && window.location.pathname.split('/')[1] !== 'popout'){
-        chrome.storage.sync.get("wp_is_redirect", function(e){
-            wp_is_redirect = e.wp_is_redirect
+        chrome.storage.sync.get("wp_is_host_viewer", function(e){
+            wp_is_host_viewer = e.wp_is_host_viewer
 
-            if(wp_is_redirect){
+            if(wp_is_host_viewer){
                 window.onload = function() {
                     setTimeout(() => {
                         document.querySelector("#live-page-chat > div").style.height = '65vh'
@@ -64,4 +64,4 @@ chrome.storage.sync.get(["DOMAIN_URL", "wp_is_host_viewer"], function(result) {
     }
 })
 
-// detect closing of conent window and update wp_is_redirect flag in storage
+// detect closing of conent window and update wp_is_host_viewer flag in storage
