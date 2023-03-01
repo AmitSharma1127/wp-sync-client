@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+#wp_link {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    color: white;
+    background-color: #9147ff;
+    font-size: large;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: -10%;
+    height: 80%;
+    width: 6.5%;
+    left: -5%;
+    padding: 0 1% 0 1%;
+
+}
+
+#wp_copy_url{
+    font-family: 'none';
+    font-size: medium;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50%;
+    width: 78%;
+    background-color: white;
+    color: rgb(27, 26, 26);
+    padding: 1% 2% 1% 2%;
+    position: relative;
+    top: -5px;
+}
+
+#wp_copy_url:hove, #wp_copy_url:focus{
+    outline: none;
+}
+
+.wp_nav {
+    height: 100%;
+}
+
+.wp_wrapper {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    height: 100%;
+}
+
+.wp_container {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0.8;
+    height: 30px;
+}
+
+.wp_body {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+    color: #34495e;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6em;
+    z-index: 9999;
+    width: 30%;
+    height: fit-content;
+    position: fixed;
+    top: 2%;
+    right: 1%;
+}
+  
+.wp_p {
+    margin: 0;
+    font-size: medium;
+    overflow-wrap: anywhere;
+}
+
+.notice {
+    position: relative;
+    margin: 1em;
+    background: #F9F9F9;
+    padding: 1em 1em 1em 2em;
+    border-left: 4px solid #DDD;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+}
+
+.notice:before {
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+    left: -17px;
+    background-color: #DDD;
+    color: #FFF;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: Georgia;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.info {
+    border-color: #0074D9;
+}
+
+.info:before {
+    content: "i";
+    background-color: #0074D9;
+}
+
+.success {
+    border-color: #2ECC40;
+}
+
+.success:before {
+    content: "√";
+    background-color: #2ECC40;
+}
+
+.warning {
+    border-color: #FFDC00;
+}
+
+.warning:before {
+    content: "!";
+    background-color: #FFDC00;
+}
+
+.error {
+    border-color: #FF4136;
+}
+
+.error:before {
+    content: "X";
+    background-color: #FF4136;
+}

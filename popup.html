@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WP Sync</title>
+
+
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+        }
+
+        body {
+            background-color: #151515;
+            width: 450px;
+            height: 325px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            width: 430px;
+            height: 100%;
+            border: 10px solid #9147ff;
+        }
+
+        .logo {
+            width: 100%;
+            height: 40%;
+            position: relative;
+            top: -1px;
+        }
+
+        .logo img {
+            width: 30%;
+            height: 100%;
+        }
+
+        .content {
+            width: 430px;
+            height: 60%;
+            padding-top: 5%;
+            max-height: 140px;
+        }
+
+        .content h3{
+            text-align: center;
+        }
+
+        .back_btn:hover {
+            cursor: pointer;
+            width: max-content;
+        }
+
+        #join_wp_url{
+            color: black;
+            padding: 3%;
+            border: 4px solid black;
+            -webkit-transition: ease-out 0.2s;
+            -moz-transition: ease-out 0.2s;
+            transition: ease-out 0.2s;
+        }
+
+        #join_wp_url:hover{
+            border: 4px double #9147ff;
+        }
+
+        #join_wp_btn{
+            padding: 10px 13px;
+            margin-top: 1%;
+            background-color: #9147ff;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .button_slide {
+            min-width: 10em;
+            color: #FFF;
+            border: 2px solid #9147ff;
+            border-radius: 0px;
+            padding: 18px 36px;
+            display: inline-block;
+            font-family: "Lucida Console", Monaco, monospace;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: inset 0px 0 10px 1px #9147ff;
+            -webkit-transition: ease-out 0.4s;
+            -moz-transition: ease-out 0.4s;
+            transition: ease-out 0.4s;
+        }
+
+        .slide_left:hover {
+            box-shadow: inset 0 0 0 50px #9147ff;
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="wrapper">
+            <span id="displayname" style="display: none; position: absolute;padding: 2% 0 0 2%;translate: 0 20px;font-size: initial;max-width: 140px;word-break: break-word;"></span>            
+            <div class="logo">
+                <span id="logout" style="display: none; padding: 2% 2% 0 0;cursor: pointer;position: absolute;translate: 360px 20px;font-size: initial;">Logout</span>                <img src="images/logo.png" class="center">
+            </div>
+            <div class="content">
+                <div class="main_content">
+                    <br>
+                    <div id="start_wp" class="button_slide slide_left center">Start Watch Party </div><br>
+                    <div id="join_wp" class="button_slide slide_left center">Join Watch Party</div>
+                </div>
+
+                <div class="main_op" style="display: none;">
+                    <span class="back_btn" style="position: absolute;padding-left: 5%;">&lt;&lt; Back</span>
+                    <br>
+                    <div id="lobby" class="button_slide slide_left center">Select A lobby</div><br>
+                    <div id="private" class="button_slide slide_left center">Go Private</div>
+                </div>
+
+                <div class="start_wp_content" style="display: none;">
+                    <span class="back_btn" style="position: absolute;padding-left: 5%;">&lt;&lt; Back</span>
+                    <span class="center" style="text-align: center; font-size: medium; padding-bottom: 1%;">What do you want to watch?</span>
+                    <div id="netflix" class="button_slide slide_left center">Netflix</div><br>
+                    <div id="youtube" class="button_slide slide_left center">Youtube</div>
+                </div>
+
+                <div class="lobby_type" style="display: none;">
+                    <span class="back_btn" style="position: absolute;padding-left: 5%;">&lt;&lt; Back</span>
+                    <span class="center" style="text-align: center; font-size: medium; padding-bottom: 1%;">Select Lobby Type</span>
+                    <div id="twitch" class="button_slide slide_left center">Login to Twitch</div><br>
+                    <!-- <div id="discord" class="button_slide slide_left center">Discord</div> -->
+                </div>
+
+                <div class="join_wp_content" style="display: none;">
+                    <span class="back_btn" style="position: absolute;padding-left: 5%;">&lt;&lt; Back</span>
+                    <span class="center" style="text-align: center; font-size: medium; padding-bottom: 1%;">Enter WP URL</span>
+                    <input id="join_wp_url" class="center" type="text" placeholder="Enter URL">
+                    <div id="join_wp_btn" class="center">Join WP</div>
+                    <div id="join_wp_err" class="center" style="text-align: center; padding-top: 1%"></div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/jquery.js"></script>
+<script src="js/popup.js"></script>
+</html>
